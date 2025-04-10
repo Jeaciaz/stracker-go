@@ -1,0 +1,28 @@
+<div id="spending-timeline" hx-swap-oob="true">
+  <div class="flex-1 -mr-4">
+    <ul class="timeline max-w-full overflow-auto">
+      {{range $index, $el := .}}
+      <li class={{if eq $index 0}}"text-xl text-base-content !sticky bg-base-100 start-0 z-10"{{else}}"text-neutral-content"{{end}}>
+        {{if gt $index 0}}
+        <hr class="bg-neutral-content">
+        {{end}}
+        <div class="timeline-start">
+          {{if eq $index 0}}
+          This month
+          {{else}}
+          {{$el.PeriodLabel}}
+          {{end}}
+        </div>
+        <div class="timeline-middle">₪</div>
+        <div class="timeline-end timeline-box {{if $el.IsHighlighted}}bg-neutral{{end}}" hx-get="/spending/timeline?month={{$el.PeriodMonth}}&year={{$el.PeriodYear}}">{{$el.SpendingsSum}}</div>
+        <hr class="{{if eq $index 0}}bg-base-content{{else}}bg-neutral-content{{end}}">
+      </li>
+      {{end}}
+      <li class="text-neutral-content">
+        <hr>
+        <div class="timeline-middle">No more expenses</div>
+        <div class="timeline-end">😎</div>
+      </li>
+    </ul>
+  </div>
+</div>

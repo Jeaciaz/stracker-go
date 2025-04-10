@@ -1,0 +1,21 @@
+<dialog id="editSpending" class="modal">
+  <form class="modal-box flex flex-col gap-4" hx-post="/spending/edit?spendingId={{.Id}}">
+    <h3 class="text-lg font-bold">Edit spending</h3>
+    <label class="input input-primary validator flex gap-2 items-center">
+      <span>Amount</span>
+      <input type="text" name="amount" required placeholder="120.0" value="{{.Amount}}">
+    </label>
+    <label class="input flex gap-2 items-center">
+      <span>Description</span>
+      <input type="text" name="description" placeholder="Shopping at mall..." value="{{.Description}}">
+    </label>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>
+<script>
+setTimeout(() => editSpending.showModal())
+</script>
+

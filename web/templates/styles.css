@@ -1,0 +1,9 @@
+@import "tailwindcss" source(none);
+@source "./**/*.html";
+@plugin "daisyui" {
+  themes: luxury;
+}
+
+* {
+  font-family: 'Lato', sans-serif;
+}

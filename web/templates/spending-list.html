@@ -1,0 +1,19 @@
+<div id="spending-list" hx-swap-oob="true">
+  <ul class="flex flex-col">
+    {{range .}}
+    <li class="px-2 py-4 border-b-base-content border-b last-of-type:border-b-0 flex gap-2">
+      <div class="flex flex-col gap-1">
+        <span class="text-base">Spent {{.Amount}}₪ on {{.CategoryName}}</span>
+        {{if .Description}}<span class="text-sm">{{.Description}}</span>{{end}}
+        <span class="text-xs">{{.Datetime}}</span>
+      </div>
+      <button class="btn btn-circle ms-auto" hx-get="/spending/edit-modal?spendingId={{.Id}}" hx-target="#modal">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" fill="currentColor"></path></svg>
+      </button>
+      <button class="btn btn-circle" hx-get="/spending/delete-modal?spendingId={{.Id}}" hx-target="#modal">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+      </button>
+    </li>
+    {{end}}
+  </ul>
+</div>

@@ -1,0 +1,23 @@
+<div id="tabs" hx-swap-oob="true">
+  <div role="tablist" class="tabs tabs-border w-full">
+    <button id="tabTrack" role="tab" class="tab grow tab-active" onclick="switchTab(this)">Track</button>
+    <button id="tabSpendings" role="tab" class="tab grow" onclick="switchTab(this)">Spendings</button>
+  </div>
+  <script>
+  function detectTab(tabIndex) {
+    const tabsList = [...tabs.querySelectorAll('.tab')]
+    tabsList.forEach(function(t, i){
+      if (i === tabIndex) {
+        t.classList.add('tab-active');
+      } else {
+        t.classList.remove('tab-active');
+      }
+    });
+  }
+  function switchTab(tab) {
+    const tabsList = [...tabs.querySelectorAll('.tab')]
+    const i = tabsList.indexOf(tab)
+    tabsContent.scrollTo({left: tabsContent.scrollWidth * i / tabsList.length, behavior: 'smooth'});
+  }
+  </script>
+</div>

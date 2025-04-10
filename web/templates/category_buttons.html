@@ -1,0 +1,18 @@
+<div id="category-buttons" hx-swap-oob="outerHTML:#category-buttons">
+  <div class="grid grid-cols-3 gap-3">
+    {{range .}}
+      <button
+        role="button"
+        hx-get="/spending/create-modal?category={{.Category.Id}}"
+        hx-target="#modal"
+        class="btn btn-outline btn-xl flex flex-col gap-2 justify-center text-base font-normal px-0 last-of-type:nth-[3n+1]:col-span-3 last-of-type:nth-[3n+2]:col-span-2"
+      >
+        <div class="flex gap-2 items-center">
+          <div>{{.Category.Emoji}}</div>
+          <div>={{.SpendingsAmount}}₪</div>
+        </div>
+        <div class="text-xs">{{.Category.Name}}</div>
+      </button>
+    {{end}}
+  </div>
+</div>
