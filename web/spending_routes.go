@@ -44,7 +44,7 @@ func createSpending(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal("Failed to parse amount: ", err)
 	}
-	err = model.CreateSpending(r.URL.Query().Get("category"), "Test user", amount, r.FormValue("description"))
+	err = model.CreateSpending(r.URL.Query().Get("category"), r.FormValue("username"), amount, r.FormValue("description"))
 	if err != nil {
 		log.Fatal("Failed to create spending: ", err)
 	}
@@ -170,6 +170,7 @@ func handleSpendingTimeline(w http.ResponseWriter, r *http.Request) {
 type SpendingListItem struct {
 	Id           string
 	Amount       float64
+	Username     string
 	CategoryName string
 	Description  string
 	Datetime     string
@@ -216,6 +217,7 @@ func writeSpendingList(w http.ResponseWriter) error {
 		spendingItems = append(spendingItems, &SpendingListItem{
 			Id:           spending.Id,
 			Amount:       spending.Amount,
+			Username:     spending.Username,
 			CategoryName: category.Name,
 			Description:  spending.Description,
 			Datetime:     time.Unix(spending.Timestamp, 0).Format("2006-01-02 15:04:05"),

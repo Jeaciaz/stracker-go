@@ -44,6 +44,14 @@
           detectTab(i)
         })
         </script>
+        <!-- Set username in local storage if missing -->
+        <script>
+          const username = localStorage.getItem('username')
+          if (!username) {
+            const username = prompt('Please enter your username')
+            localStorage.setItem('username', username)
+          }
+        </script>
         <!-- Track tab content -->
         <div class="w-full shrink-0 snap-start overflow-y-auto overflow-x-hidden">
           <div id="category-buttons">
