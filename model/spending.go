@@ -99,11 +99,13 @@ func DeleteSpending (id string) error {
 
 func GetSpendingsForCategory(categoryId string, month int, year int) ([]*Spending, error) {
 	db := pkg.GetDb()
+	day := 1 + pkg.DefaultPeriodOffset
   if year == 0 {
     month = int(time.Now().Month())
     year = time.Now().Year()
+		day = time.Now().Day()
   }
-  timestamp := time.Date(year, time.Month(month), 1, 0, 0, 0, 0, time.Now().Location()).Unix()
+  timestamp := time.Date(year, time.Month(month), day, 0, 0, 0, 0, time.Now().Location()).Unix()
 	periodStart, periodEnd := pkg.GetPeriod(timestamp, pkg.DefaultPeriodOffset)
 	rows, err := db.Query("SELECT * FROM spendings WHERE category = ? AND timestamp > ? AND timestamp < ?", categoryId, periodStart, periodEnd)
 	if err != nil {
