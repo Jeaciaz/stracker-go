@@ -61,10 +61,6 @@ func createSpending(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal("Failed to write spending data: ", err)
 	}
-	err = WriteCategoryButtons(w)
-	if err != nil {
-		log.Fatal("Failed to write category buttons: ", err)
-	}
 }
 
 func editSpendingModal(w http.ResponseWriter, r *http.Request) {
