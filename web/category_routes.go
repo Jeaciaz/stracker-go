@@ -15,6 +15,10 @@ func HandleCategoryRoutes() {
 }
 
 func categoryButtons(w http.ResponseWriter, r *http.Request) {
+	if !CheckPassword(r) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 	err := WriteCategoryButtons(w, 0, 0)
 	if err != nil {
     log.Fatal("Failed to write category buttons: ", err)

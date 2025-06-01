@@ -13,7 +13,11 @@ import (
 var db *sql.DB
 
 func initDb() {
-	conn, err := sql.Open("sqlite", "file:/db/dev.db?mode=rwc&_busy_timeout=1000")
+	env, err := LoadConfig()
+	if err != nil {
+		log.Fatal("Failed to load config: ", err)
+	}
+	conn, err := sql.Open("sqlite", "file:"+env.DbUrl+"?mode=rwc&_busy_timeout=1000")
 	if err != nil {
 		log.Fatal("Failed to open DB: ", err)
 	}

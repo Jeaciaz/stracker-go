@@ -23,6 +23,10 @@ func HandleSpendingRoutes() {
 }
 
 func submitSpendingModal(w http.ResponseWriter, r *http.Request) {
+	if !CheckPassword(r) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 	category, err := model.GetCategoryById(r.URL.Query().Get("category"))
 	if err != nil {
 		log.Fatal("Failed to get category: ", err)
@@ -35,6 +39,10 @@ func submitSpendingModal(w http.ResponseWriter, r *http.Request) {
 }
 
 func createSpending(w http.ResponseWriter, r *http.Request) {
+	if !CheckPassword(r) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 	category, err := model.GetCategoryById(r.URL.Query().Get("category"))
 	if err != nil {
 		log.Fatal("Failed to get category: ", err)
@@ -64,6 +72,10 @@ func createSpending(w http.ResponseWriter, r *http.Request) {
 }
 
 func editSpendingModal(w http.ResponseWriter, r *http.Request) {
+	if !CheckPassword(r) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 	spending, err := model.GetSpendingById(r.URL.Query().Get("spendingId"))
 	if err != nil {
 		log.Fatal("Failed to get spending: ", err)
@@ -79,6 +91,10 @@ func editSpendingModal(w http.ResponseWriter, r *http.Request) {
 }
 
 func editSpending(w http.ResponseWriter, r *http.Request) {
+	if !CheckPassword(r) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 	spending, err := model.GetSpendingById(r.URL.Query().Get("spendingId"))
 	if err != nil {
 		log.Fatal("Failed to get spending: ", err)
@@ -111,6 +127,10 @@ func editSpending(w http.ResponseWriter, r *http.Request) {
 }
 
 func deleteSpendingModal(w http.ResponseWriter, r *http.Request) {
+	if !CheckPassword(r) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 	spending, err := model.GetSpendingById(r.URL.Query().Get("spendingId"))
 	if err != nil {
 		log.Fatal("Failed to get spending: ", err)
@@ -126,6 +146,10 @@ func deleteSpendingModal(w http.ResponseWriter, r *http.Request) {
 }
 
 func deleteSpending(w http.ResponseWriter, r *http.Request) {
+	if !CheckPassword(r) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 	spending, err := model.GetSpendingById(r.URL.Query().Get("spendingId"))
 	if err != nil {
 		log.Fatal("Failed to get spending: ", err)
@@ -154,6 +178,10 @@ func deleteSpending(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleSpendingTimeline(w http.ResponseWriter, r *http.Request) {
+	if !CheckPassword(r) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 	monthQ := r.URL.Query().Get("month")
 	yearQ := r.URL.Query().Get("year")
 	year, err := strconv.ParseInt(yearQ, 0, 0)
@@ -177,6 +205,10 @@ type SpendingListItem struct {
 }
 
 func handleSpendingList(w http.ResponseWriter, r *http.Request) {
+	if !CheckPassword(r) {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
+		return
+	}
 	err := writeSpendingList(w)
 	if err != nil {
 		log.Fatal("Failed to write spending list: ", err)

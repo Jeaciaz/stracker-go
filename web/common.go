@@ -1,10 +1,25 @@
 package web
 
 import (
+	"log"
 	"fmt"
 	"html/template"
 	"net/http"
+
+	"github.com/stracker-go/pkg"
 )
+
+func CheckPassword(r *http.Request) bool {
+	password := r.Header.Get("password")
+	env, err := pkg.LoadConfig()
+	if err != nil {
+		log.Fatal("Failed to load config: ", err)
+	}
+	if password != env.Password {
+		return false
+	}
+	return true
+}
 
 func WriteConfetti(w http.ResponseWriter, emoji string) error {
   t, err := template.ParseFiles("web/templates/confetti.html")

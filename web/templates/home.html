@@ -33,7 +33,15 @@
     <meta name="msapplication-TileColor" content="#da532c" />
   </head>
   <body>
-    <main class="flex flex-col gap-6 p-4 min-h-svh relative overflow-y-hidden">
+    <!-- Set password in local storage if missing -->
+    <script>
+      const password = localStorage.getItem('password')
+      if (!password) {
+        const password = prompt('Please enter your password')
+        localStorage.setItem('password', password)
+      }
+    </script>
+    <main class="flex flex-col gap-6 p-4 min-h-svh relative overflow-y-hidden" hx-headers="js:{password: localStorage.getItem('password')}">
       <h1 class="text-4xl">Track your ₪</h1>
       <div id="tabs" hx-get="/tabs" hx-trigger="load">Loading tabs...</div>
       <div id="tabsContent" class="flex overflow-x-auto snap-mandatory snap-x mx-2 gap-6 grow basis-0">
