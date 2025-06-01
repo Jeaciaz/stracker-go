@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 
 	"github.com/stracker-go/model"
 )
@@ -32,7 +33,7 @@ func WriteCategoryButtons(w http.ResponseWriter, month int, year int) error {
 
 	type CategoryButtonData struct {
 		Category        *model.Category
-		SpendingsAmount float64
+		SpendingsAmount string
 	}
 	buttons := make([]*CategoryButtonData, len(cats))
 	for i, cat := range cats {
@@ -44,7 +45,7 @@ func WriteCategoryButtons(w http.ResponseWriter, month int, year int) error {
 		for _, spending := range spendings {
 			sum += spending.Amount
 		}
-		buttons[i] = &CategoryButtonData{Category: cat, SpendingsAmount: sum}
+		buttons[i] = &CategoryButtonData{Category: cat, SpendingsAmount: strconv.FormatFloat(sum, 'f', 2, 64)}
 	}
 
 	err = t.Execute(w, buttons)
