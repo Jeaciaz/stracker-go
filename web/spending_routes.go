@@ -239,7 +239,7 @@ func writeSpendingTimeline(w http.ResponseWriter, month int, year int) error {
 	}
 
 	type TimelineDisplay struct {
-		SpendingsSum  float64
+		SpendingsSum  string
 		PeriodLabel   string
 		PeriodMonth   int
 		PeriodYear    int
@@ -262,7 +262,7 @@ func writeSpendingTimeline(w http.ResponseWriter, month int, year int) error {
 			isHighlighted = true
 		}
 		timelineDisplay = append(timelineDisplay, &TimelineDisplay{
-			SpendingsSum:  sum,
+			SpendingsSum:  strconv.FormatFloat(sum, 'f', 2, 64),
 			PeriodLabel:   periodStart.Format("Jan '2006"),
 			PeriodMonth:   periodMonth,
 			PeriodYear:    periodYear,
