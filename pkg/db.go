@@ -13,7 +13,7 @@ import (
 var db *sql.DB
 
 func initDb() {
-	conn, err := sql.Open("sqlite", "file:db/dev.db?mode=rwc&_busy_timeout=1000")
+	conn, err := sql.Open("sqlite", "file:/db/dev.db?mode=rwc&_busy_timeout=1000")
 	if err != nil {
 		log.Fatal("Failed to open DB: ", err)
 	}
